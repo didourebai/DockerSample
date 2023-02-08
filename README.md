@@ -54,7 +54,7 @@ We will use docker scan as recommended in the build task to check the vulnerabil
 docker scan myimagesample:1.0
 ```
 We can see that we have some vulnerabilities to resolve.
-![DockerContainerVurl](../images/image2.jpeg)
+![DockerContainerVurl](images/image2.jpeg)
 ![DockerImageVurl](../images/image3.jpeg)
 We will use a multi-stage build and define a stage for building the application. Docker can use one base image for compilation, packaging, and unit tests. This feature allows you to define stages based on different base images. This means you can use a base image that contains all the dependencies you need to build or publish your application and then a minimal base image containing just runtime dependencies. We define a build stage in our Dockerfile using AS
 
@@ -123,7 +123,9 @@ The HEALTHCHECK instruction used in Docker to test the container and make sure i
 Once the application is deployed in production, it will likely be managed by an orchestrator such as Kubernetes or Service Fabric. It provides health checks to share container status with Orchestrator to allow configuration-based management tasks. Consider the following modification in Dockerfile:
 ```bash
 #If you’re using the Linux Container
+```bash
 HEALTHCHECK CMD curl — fail http://localhost || exit 1
+```
 #If you’re using Windows Container with Powershell
 #HEALTHCHECK CMD powershell -command `
 try { `
@@ -133,9 +135,9 @@ else {return 1}; `
 } catch { return 1 }
 ```
 And we add these instrcution in Dockerfile before RUN adduser:
-
+```bash
 HEALTHCHECK CMD curl — fail http://localhost:5000/DockerSample || exit 1
-
+```
 When HEALTHCHECK is present in a Dockerfile, you’ll see the container’s health in the STATUS column while running docker ps. A container that passes this check displays as healthy. An unhealthy container displays as unhealthy.
 
 We made some changes in Dockerfile to use mcr.microsoft.com/dotnet/runtime-deps instead of using mcr.microsoft.com/dotnet/aspnet ans we will reorder our file.
