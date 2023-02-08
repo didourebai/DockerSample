@@ -47,7 +47,7 @@ We will use docker run to execute our image myimagesample:1.0 in interactive mod
 docker run -p 5000:5000 — name mydockerimage -ti — — rm myimagesample:1.0
 ```
 Let’s take a look at the image size in Docker Desktop:
-![DockerDesktopSize](../images/image1.jpeg)
+![DockerDesktopSize](images/image1.jpeg)
 
 We will use docker scan as recommended in the build task to check the vulnerabilities.
 ```bash
@@ -55,7 +55,7 @@ docker scan myimagesample:1.0
 ```
 We can see that we have some vulnerabilities to resolve.
 ![DockerContainerVurl](images/image2.jpeg)
-![DockerImageVurl](../images/image3.jpeg)
+![DockerImageVurl](images/image3.jpeg)
 We will use a multi-stage build and define a stage for building the application. Docker can use one base image for compilation, packaging, and unit tests. This feature allows you to define stages based on different base images. This means you can use a base image that contains all the dependencies you need to build or publish your application and then a minimal base image containing just runtime dependencies. We define a build stage in our Dockerfile using AS
 
 To optimize Dockerfiles while still being readable and maintainable we will use Multi-stage builds.
